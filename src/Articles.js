@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-
 import Article from './Article';
 
 class Articles extends React.Component{
@@ -16,7 +15,6 @@ class Articles extends React.Component{
     var self = this;
     axios.get('https://baniak-blog-api.herokuapp.com/articles')
       .then(function (response) {
-        console.log(response.data);
         self.setState({articles: response.data});
       })
       .catch(function (error) {
@@ -26,7 +24,6 @@ class Articles extends React.Component{
   render() {
     return (
       <div>
-        <h3>Articles</h3>
         {this.state.articles.map(function(article) {
           return <Article key={article.id} article={article}/>})
         }
