@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import App from './App';
 import Articles from './Articles';
 import ShowArticle from './ShowArticle';
+import NewArticle from './NewArticle';
 
 const main = document.getElementById('root');
 
@@ -16,6 +17,7 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <IndexRoute component={Articles}></IndexRoute>
       <Route path="/article/:article" component={ShowArticle}></Route>
+      <Route path="/new-article" component={NewArticle}></Route>
     </Route>
   </Router>,
 main);

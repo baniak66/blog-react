@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import axios from 'axios';
 import Article from './Article';
 
@@ -24,6 +25,8 @@ class Articles extends React.Component{
   render() {
     return (
       <div>
+        <Link to="/new-article" className='btn btn-success'>New article</Link>
+        <hr/>
         {this.state.articles.map(function(article) {
           return <Article key={article.id} article={article}/>})
         }
