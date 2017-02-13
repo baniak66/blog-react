@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import axios from 'axios';
 
 class ShowArticle extends React.Component{
@@ -9,6 +9,7 @@ class ShowArticle extends React.Component{
       article: {}
     }
     this.getArticle();
+    this.handleDelete = this.handleDelete.bind(this);
   }
   getArticle(){
     var self = this;
@@ -20,12 +21,28 @@ class ShowArticle extends React.Component{
         console.log(error);
       });
   }
+  handleDelete(e) {
+    var self = this;
+    e.preventDefault();
+    axios.delete('https://baniak-blog-api.herokuapp.com/articles/' + self.props.params.article)
+      .then(function (response) {
+        hashHistory.push('/');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   render() {
     return (
       <div>
         <h3>{this.state.article.title}</h3>
+        <hr/>
         <p>{this.state.article.content}</p>
-        <Link to="/" className='btn btn-danger'>Back</Link>
+        <Link to="/" className='btn btn-default'>Back</Link>
+        <hr/>
+        <button className="btn btn-danger" onClick={this.handleDelete}>
+          Delete article
+        </button>
       </div>
     );
   }
