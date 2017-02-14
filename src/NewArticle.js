@@ -49,12 +49,13 @@ class NewArticle extends React.Component{
           </input>
           </div>
           <div className="form-group">
-          <input className='form-control'
+          <textarea className='form-control'
+            rows={4}
             name="content"
             placeholder={"content"}
             value={this.state.content}
             onChange={this.onChangeField}>
-          </input>
+          </textarea>
           </div>
           <button className='btn btn-default' type="submit">
             Save
