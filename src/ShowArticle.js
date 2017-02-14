@@ -43,7 +43,7 @@ class ShowArticle extends React.Component{
         </h3>
         <hr/>
         <p>{this.state.article.content}</p>
-        {this.state.article.comments &&<CommentPanel comments={this.state.article.comments}/>}
+        {this.state.article.comments &&<CommentPanel comments={this.state.article.comments} article={this.state.article.id}/>}
         <hr/>
         <Link to="/" className='btn btn-default'>Back</Link>
         <Link to={"/edit-article/"+this.state.article.id} className='btn btn-warning'>Edit</Link>
