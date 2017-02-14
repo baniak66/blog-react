@@ -39,6 +39,7 @@ class ShowArticle extends React.Component{
         <hr/>
         <p>{this.state.article.content}</p>
         <Link to="/" className='btn btn-default'>Back</Link>
+        <Link to={"/edit-article/"+this.state.article.id} className='btn btn-warning'>Edit</Link>
         <hr/>
         <button className="btn btn-danger" onClick={this.handleDelete}>
           Delete article

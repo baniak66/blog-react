@@ -9,6 +9,7 @@ import App from './App';
 import Articles from './Articles';
 import ShowArticle from './ShowArticle';
 import NewArticle from './NewArticle';
+import EditArticle from './EditArticle';
 
 const main = document.getElementById('root');
 
@@ -18,6 +19,7 @@ ReactDOM.render(
       <IndexRoute component={Articles}></IndexRoute>
       <Route path="/article/:article" component={ShowArticle}></Route>
       <Route path="/new-article" component={NewArticle}></Route>
+      <Route path="/edit-article/:article" component={EditArticle}></Route>
     </Route>
   </Router>,
 main);
