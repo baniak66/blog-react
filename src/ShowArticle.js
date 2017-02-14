@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import axios from 'axios';
+import CommentPanel from './CommentPanel';
 
 class ShowArticle extends React.Component{
   constructor(props) {
@@ -35,15 +36,17 @@ class ShowArticle extends React.Component{
   render() {
     return (
       <div>
-        <h3>{this.state.article.title}</h3>
-        <hr/>
-        <p>{this.state.article.content}</p>
-        <Link to="/" className='btn btn-default'>Back</Link>
-        <Link to={"/edit-article/"+this.state.article.id} className='btn btn-warning'>Edit</Link>
-        <hr/>
-        <button className="btn btn-danger" onClick={this.handleDelete}>
+        <h3>{this.state.article.title}
+        <button className="btn btn-danger pull-right" onClick={this.handleDelete}>
           Delete article
         </button>
+        </h3>
+        <hr/>
+        <p>{this.state.article.content}</p>
+        {this.state.article.comments &&<CommentPanel comments={this.state.article.comments}/>}
+        <hr/>
+        <Link to="/" className='btn btn-default'>Back</Link>
+        <Link to={"/edit-article/"+this.state.article.id} className='btn btn-warning'>Edit</Link>
       </div>
     );
   }
