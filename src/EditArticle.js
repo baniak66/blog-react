@@ -37,7 +37,7 @@ class EditArticle extends React.Component{
     })
     .then(function (response) {
       console.log(response);
-      hashHistory.push('/');
+      hashHistory.push('/article/'+ self.props.params.article);
     })
     .catch(function (error) {
       console.log(error);
