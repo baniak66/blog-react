@@ -20,22 +20,6 @@ class NewArticle extends React.Component{
     obj[name] = e.target.value;
     this.setState(obj);
   }
-
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   axios.post('https://baniak-blog-api.herokuapp.com/articles', {
-  //     article: this.state
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //     hashHistory.push('/');
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-
-  // }
-
   handleSubmit(e) {
     var config = {
       headers: {'access-token': Cookies.get("access-token"),
@@ -79,7 +63,6 @@ class NewArticle extends React.Component{
             Save
           </button>
           <Link to="/" className='btn btn-danger'>Back</Link>
-
         </form>
       </div>
     )

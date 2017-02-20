@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-class LoginForm extends React.Component{
+class RegistrationForm extends React.Component{
 
   constructor(props) {
     super(props);
     this.state = {
         email: '',
-        password: ''
+        password: '',
+        password_confirmation: ''
     }
     this.onChangeField = this.onChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,14 +23,16 @@ class LoginForm extends React.Component{
   }
   handleSubmit(e) {
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/auth/sign_in', {
+    axios.post('https://baniak-blog-api.herokuapp.com/auth', {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation
     })
     .then(function (response) {
       Cookies.set('access-token', response.headers['access-token']);
       Cookies.set('client', response.headers['client']);
       Cookies.set('uid', response.headers['uid']);
+      hashHistory.push('/');
     })
     .catch(function (error) {
       console.log(error);
@@ -38,16 +41,18 @@ class LoginForm extends React.Component{
   render() {
     return (
       <div>
-        <form className='navbar-form navbar-right' onSubmit={this.handleSubmit}>
+        <h3>New User</h3>
+        <form className='' onSubmit={this.handleSubmit}>
           <div className="form-group">
           <input className='form-control'
             type="text"
             name="email"
             placeholder={"email"}
-            value={this.state.title}
+            value={this.state.email}
             onChange={this.onChangeField}>
           </input>
           </div>
+
           <div className="form-group">
           <input className='form-control'
             type="password"
@@ -57,14 +62,23 @@ class LoginForm extends React.Component{
             onChange={this.onChangeField}>
           </input>
           </div>
-          <button className='btn btn-info' type="submit">
-            Login
-          </button>
-          <Link to="/registration" className='btn btn-default'>Register</Link>
 
+          <div className="form-group">
+          <input className='form-control'
+            type="password"
+            name="password_confirmation"
+            placeholder={"password_confirmation"}
+            value={this.state.password_confirmation}
+            onChange={this.onChangeField}>
+          </input>
+          </div>
+          <button className='btn btn-default' type="submit">
+            Signup
+          </button>
+          <Link to="/" className='btn btn-danger'>Back</Link>
         </form>
       </div>
     )
   }
 }
-export default LoginForm;
+export default RegistrationForm;
