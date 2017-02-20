@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie'
 import { Link, hashHistory } from 'react-router';
 
 class NewArticle extends React.Component{
@@ -20,21 +21,38 @@ class NewArticle extends React.Component{
     this.setState(obj);
   }
 
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   axios.post('https://baniak-blog-api.herokuapp.com/articles', {
+  //     article: this.state
+  //   })
+  //   .then(function (response) {
+  //     console.log(response);
+  //     hashHistory.push('/');
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+
+  // }
+
   handleSubmit(e) {
+    var config = {
+      headers: {'access-token': Cookies.get("access-token"),
+                'client': Cookies.get("client"),
+                'uid': Cookies.get("uid")}
+    };
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/articles', {
-      article: this.state
-    })
+    axios.post('https://baniak-blog-api.herokuapp.com/articles',
+      {article: this.state}, config
+    )
     .then(function (response) {
-      console.log(response);
       hashHistory.push('/');
     })
     .catch(function (error) {
       console.log(error);
     });
-
   }
-
   render() {
     return (
       <div>
