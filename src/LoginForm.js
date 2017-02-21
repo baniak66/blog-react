@@ -21,8 +21,9 @@ class LoginForm extends React.Component{
     this.setState(obj);
   }
   handleSubmit(e) {
+    var self = this;
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/auth/sign_in', {
+    axios.post('http://localhost:3000/auth/sign_in', {
       email: this.state.email,
       password: this.state.password
     })
@@ -30,6 +31,9 @@ class LoginForm extends React.Component{
       Cookies.set('access-token', response.headers['access-token']);
       Cookies.set('client', response.headers['client']);
       Cookies.set('uid', response.headers['uid']);
+      Cookies.set('expiry', response.headers['expiry']);
+      console.log('cookies set')
+      self.props.loginUser(response.headers['uid']);
     })
     .catch(function (error) {
       console.log(error);
