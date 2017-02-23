@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import axios from 'axios';
+import Alert from 'react-s-alert';
 
 class RegistrationForm extends React.Component{
 
@@ -33,6 +34,11 @@ class RegistrationForm extends React.Component{
     .then(function (response) {
       console.log('user created');
       hashHistory.push('/');
+      Alert.info('Account created, please login:)', {
+            position: 'bottom-left',
+            effect: 'slide',
+            timeout: 10000
+      });
     })
     .catch(function (error) {
       console.log(error);

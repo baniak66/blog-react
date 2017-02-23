@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header'
+import Alert from 'react-s-alert';
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
         <div className="container">
           {this.props.children}
         </div>
+        <Alert stack={{limit: 3}} />
       </div>
     );
   }
