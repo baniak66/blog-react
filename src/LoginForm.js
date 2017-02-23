@@ -8,8 +8,8 @@ class LoginForm extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-        email: '',
-        password: ''
+      email: '',
+      password: ''
     }
     this.onChangeField = this.onChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,20 +23,35 @@ class LoginForm extends React.Component{
   handleSubmit(e) {
     var self = this;
     e.preventDefault();
-    axios.post('http://localhost:3000/auth/sign_in', {
-      email: this.state.email,
-      password: this.state.password
+    axios.post('https://baniak-blog-api.herokuapp.com/user_token', {
+      auth: {
+        email: this.state.email,
+        password: this.state.password
+      }, format: 'json'
     })
     .then(function (response) {
-      Cookies.set('access-token', response.headers['access-token']);
-      Cookies.set('client', response.headers['client']);
-      Cookies.set('uid', response.headers['uid']);
-      Cookies.set('expiry', response.headers['expiry']);
-      console.log('cookies set')
-      self.props.loginUser(response.headers['uid']);
+      Cookies.set('token', response.data.jwt);
+      console.log('cookie set');
+      self.setUser();
     })
     .catch(function (error) {
       console.log(error);
+    });
+  }
+  setUser() {
+    var self = this;
+    var config = {
+      headers: { 'Authorization': Cookies.get("token") }
+    }
+    axios.post('https://baniak-blog-api.herokuapp.com/users/sign_in', {
+      user: {
+        email: this.state.email,
+        password: this.state.password
+      }, format: 'json'}, config
+    )
+    .then(function (response) {
+      Cookies.set('user', response.data.email);
+      self.props.loginUser(response.data.email);
     });
   }
   render() {

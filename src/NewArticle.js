@@ -22,9 +22,7 @@ class NewArticle extends React.Component{
   }
   handleSubmit(e) {
     var config = {
-      headers: {'access-token': Cookies.get("access-token"),
-                'client': Cookies.get("client"),
-                'uid': Cookies.get("uid")}
+      headers: { 'Authorization': Cookies.get("token") }
     };
     e.preventDefault();
     axios.post('https://baniak-blog-api.herokuapp.com/articles',

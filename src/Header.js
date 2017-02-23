@@ -15,17 +15,21 @@ class Header extends React.Component {
     this.getUser = this.getUser.bind(this);
     this.handleLogoutUser = this.handleLogoutUser.bind(this);
     this.handleLoginUser = this.handleLoginUser.bind(this);
-    this.getUser();
+  }
+  componentWillMount() {
+    var name = Cookies.get('user');
+    var token = Cookies.get('token');
+    if (name !== '' && token !== '') {
+      this.setState({user: true});
+      this.setState({name: name});
+    }
   }
   getUser() {
     var self = this;
     var config = {
-      headers: {'access-token': Cookies.get("access-token"),
-                'client': Cookies.get("client"),
-                'uid': Cookies.get("uid"),
-                'provider': "email"}
+      headers: { 'Authorization': Cookies.get("token") }
     };
-    axios.get('http://localhost:3000/user_signed', config)
+    axios.get('https://baniak-blog-api.herokuapp.com/user_signed', config)
       .then(function (response) {
         console.log(response);
         self.setState({user: response.data.status});

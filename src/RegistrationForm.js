@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 class RegistrationForm extends React.Component{
 
   constructor(props) {
     super(props);
     this.state = {
-        email: '',
-        password: '',
-        password_confirmation: ''
+      email: '',
+      password: '',
+      password_confirmation: ''
     }
     this.onChangeField = this.onChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,15 +22,16 @@ class RegistrationForm extends React.Component{
   }
   handleSubmit(e) {
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/auth', {
-      email: this.state.email,
-      password: this.state.password,
-      password_confirmation: this.state.password_confirmation
+    axios.post('https://baniak-blog-api.herokuapp.com/users', {
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+        password_confirmation: this.state.password_confirmation
+      },
+      format: 'json'
     })
     .then(function (response) {
-      Cookies.set('access-token', response.headers['access-token']);
-      Cookies.set('client', response.headers['client']);
-      Cookies.set('uid', response.headers['uid']);
+      console.log('user created');
       hashHistory.push('/');
     })
     .catch(function (error) {
