@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Alert from 'react-s-alert';
 
 class LoginForm extends React.Component{
 
@@ -33,9 +34,17 @@ class LoginForm extends React.Component{
       Cookies.set('token', response.data.jwt);
       console.log('cookie set');
       self.setUser();
+      Alert.success('you are logged in', {
+        position: 'bottom-left',
+        effect: 'slide',
+        timeout: 5000});
     })
     .catch(function (error) {
       console.log(error);
+      Alert.error('wrong email or password', {
+            position: 'bottom-left',
+            effect: 'slide',
+            timeout: 5000});
     });
   }
   setUser() {

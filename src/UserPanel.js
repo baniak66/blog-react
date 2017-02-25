@@ -1,5 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
+import Alert from 'react-s-alert';
 
 class UserPanel extends React.Component{
   constructor(props) {
@@ -12,6 +13,10 @@ class UserPanel extends React.Component{
     Cookies.set('token', "");
     Cookies.set('user', "");
     this.props.logoutUser();
+    Alert.success('you are logged out', {
+      position: 'bottom-left',
+      effect: 'slide',
+      timeout: 5000});
   }
   render() {
     return (

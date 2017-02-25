@@ -34,14 +34,20 @@ class RegistrationForm extends React.Component{
     .then(function (response) {
       console.log('user created');
       hashHistory.push('/');
-      Alert.info('Account created, please login:)', {
+      Alert.success('account created, please login:)', {
             position: 'bottom-left',
             effect: 'slide',
-            timeout: 10000
-      });
+            timeout: 5000});
     })
     .catch(function (error) {
-      console.log(error);
+      console.log(error.response.data.errors);
+      var err = error.response.data.errors;
+      for (var key in err){
+        Alert.error((key + " " + err[key]), {
+            position: 'bottom-left',
+            effect: 'slide',
+            timeout: 5000});
+      }
     });
   }
   render() {
