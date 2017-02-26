@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, hashHistory } from 'react-router';
+import srv from './Srv';
 
 class EditArticle extends React.Component{
   constructor(props) {
@@ -20,7 +21,7 @@ class EditArticle extends React.Component{
   }
   getArticle(){
     var self = this;
-    axios.get('https://baniak-blog-api.herokuapp.com/articles/' + self.props.params.article)
+    axios.get(srv+'/articles/' + self.props.params.article)
       .then(function (response) {
         self.setState({title: response.data.title});
         self.setState({content: response.data.content});

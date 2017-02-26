@@ -4,6 +4,7 @@ import LoginForm from './LoginForm';
 import UserPanel from './UserPanel';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import srv from './Srv';
 
 class Header extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Header extends React.Component {
     var config = {
       headers: { 'Authorization': Cookies.get("token") }
     };
-    axios.get('https://baniak-blog-api.herokuapp.com/user_signed', config)
+    axios.get(srv+'/user_signed', config)
       .then(function (response) {
         console.log(response);
         self.setState({user: response.data.status});

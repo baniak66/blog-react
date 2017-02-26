@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import axios from 'axios';
 import Alert from 'react-s-alert';
+import srv from './Srv';
 
 class RegistrationForm extends React.Component{
 
@@ -23,7 +24,7 @@ class RegistrationForm extends React.Component{
   }
   handleSubmit(e) {
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/users', {
+    axios.post(srv+'/users', {
       user: {
         email: this.state.email,
         password: this.state.password,

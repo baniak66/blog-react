@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'
 import { Link, hashHistory } from 'react-router';
+import srv from './Srv';
 
 class NewArticle extends React.Component{
   constructor(props) {
@@ -13,7 +14,6 @@ class NewArticle extends React.Component{
     this.onChangeField = this.onChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
   onChangeField(e) {
     var name = e.target.name;
     var obj = {};
@@ -25,8 +25,8 @@ class NewArticle extends React.Component{
       headers: { 'Authorization': Cookies.get("token") }
     };
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/articles',
-      {article: this.state}, config
+    axios.post(srv+'/articles',
+      {article: this.state, email: Cookies.get('user')}, config
     )
     .then(function (response) {
       hashHistory.push('/');

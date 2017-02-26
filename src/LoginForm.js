@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Alert from 'react-s-alert';
+import srv from './Srv';
 
 class LoginForm extends React.Component{
 
@@ -24,7 +25,7 @@ class LoginForm extends React.Component{
   handleSubmit(e) {
     var self = this;
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/user_token', {
+    axios.post(srv+'/user_token', {
       auth: {
         email: this.state.email,
         password: this.state.password
@@ -52,7 +53,7 @@ class LoginForm extends React.Component{
     var config = {
       headers: { 'Authorization': Cookies.get("token") }
     }
-    axios.post('https://baniak-blog-api.herokuapp.com/users/sign_in', {
+    axios.post(srv+'/users/sign_in', {
       user: {
         email: this.state.email,
         password: this.state.password

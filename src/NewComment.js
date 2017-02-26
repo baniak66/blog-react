@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import srv from './Srv';
 
 class NewComment extends React.Component{
   constructor(props) {
@@ -19,7 +20,7 @@ class NewComment extends React.Component{
   handleSubmit(e) {
     var self = this;
     e.preventDefault();
-    axios.post('https://baniak-blog-api.herokuapp.com/articles/' + self.props.article + '/comments', {
+    axios.post(srv+'/articles/' + self.props.article + '/comments', {
       comment: this.state
     })
     .then(function (response) {
