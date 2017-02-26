@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import axios from 'axios';
 import CommentPanel from './CommentPanel';
+import Cookies from 'js-cookie';
 import srv from './Srv';
 
 class ShowArticle extends React.Component{
@@ -24,9 +25,12 @@ class ShowArticle extends React.Component{
       });
   }
   handleDelete(e) {
+    var config = {
+      headers: { 'Authorization': Cookies.get("token") }
+    };
     var self = this;
     e.preventDefault();
-    axios.delete(srv+'/articles/' + self.props.params.article)
+    axios.delete(srv+'/articles/' + self.props.params.article, config)
       .then(function (response) {
         hashHistory.push('/');
       })
