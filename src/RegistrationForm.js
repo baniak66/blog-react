@@ -44,10 +44,12 @@ class RegistrationForm extends React.Component{
       console.log(error.response.data.errors);
       var err = error.response.data.errors;
       for (var key in err){
-        Alert.error((key + " " + err[key]), {
-            position: 'bottom-left',
-            effect: 'slide',
-            timeout: 5000});
+        if (err.hasOwnProperty(key)){
+          Alert.error((key + " " + err[key]), {
+              position: 'bottom-left',
+              effect: 'slide',
+              timeout: 5000});
+        }
       }
     });
   }

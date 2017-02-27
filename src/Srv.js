@@ -5,4 +5,4 @@ class Srv {
   }
 }
 
-export default (new Srv).srv;
+export default (new Srv()).srv;
