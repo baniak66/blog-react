@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'
 import { Link, hashHistory } from 'react-router';
+import Alert from 'react-s-alert';
 import srv from './Srv';
 
 class NewArticle extends React.Component{
@@ -33,6 +34,15 @@ class NewArticle extends React.Component{
     })
     .catch(function (error) {
       console.log(error);
+      var err = error.response.data.errors;
+      for (var key in err){
+        if (err.hasOwnProperty(key)){
+          Alert.error((key + " " + err[key]), {
+              position: 'bottom-left',
+              effect: 'slide',
+              timeout: 5000});
+        }
+      }
     });
   }
   render() {
