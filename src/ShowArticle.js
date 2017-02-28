@@ -39,22 +39,23 @@ class ShowArticle extends React.Component{
       });
   }
   render() {
+    var editDeleteButtons;
+    if (this.state.article.email === Cookies.get('user')) {
+      editDeleteButtons=[<button className="btn btn-danger pull-right" onClick={this.handleDelete} key="delete">Delete article</button>,
+      <Link to={"/edit-article/"+this.state.article.id} className='btn btn-warning pull-right' key="edit">Edit</Link>]
+    }
     return (
       <div>
         <h3>{this.state.article.title}
-        <button className="btn btn-danger pull-right" onClick={this.handleDelete}>
-          Delete article
-        </button>
+        {editDeleteButtons}
         </h3>
         <hr/>
         <p>{this.state.article.content}</p>
         {this.state.article.comments &&<CommentPanel comments={this.state.article.comments} article={this.state.article.id}/>}
         <hr/>
         <Link to="/" className='btn btn-default'>Back</Link>
-        <Link to={"/edit-article/"+this.state.article.id} className='btn btn-warning'>Edit</Link>
       </div>
     );
   }
 }
-
 export default ShowArticle;
