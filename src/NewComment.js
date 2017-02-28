@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import Alert from 'react-s-alert';
 import srv from './Srv';
 
 class NewComment extends React.Component{
@@ -18,17 +20,24 @@ class NewComment extends React.Component{
     this.setState(obj);
   }
   handleSubmit(e) {
+    var config = {
+      headers: { 'Authorization': Cookies.get("token") }
+    };
     var self = this;
     e.preventDefault();
     axios.post(srv+'/articles/' + self.props.article + '/comments', {
-      comment: this.state
-    })
+      comment: this.state, email: Cookies.get('user')
+    }, config)
     .then(function (response) {
       self.props.handleNewComment(response.data);
       self.setState({content:''});
     })
     .catch(function (error) {
       console.log(error);
+      Alert.error(("login to add a comment"), {
+          position: 'bottom-left',
+          effect: 'slide',
+          timeout: 5000});
     });
 
   }
