@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, hashHistory } from 'react-router';
+import Cookies from 'js-cookie';
 import srv from './Srv';
 
 class EditArticle extends React.Component{
@@ -31,11 +32,14 @@ class EditArticle extends React.Component{
       });
   }
   handleSubmit(e) {
+    var config = {
+      headers: { 'Authorization': Cookies.get("token") }
+    };
     var self = this;
     e.preventDefault();
-    axios.put('https://baniak-blog-api.herokuapp.com/articles/' + self.props.params.article, {
+    axios.put(srv+'/articles/' + self.props.params.article, {
       article: this.state
-    })
+    }, config)
     .then(function (response) {
       console.log(response);
       hashHistory.push('/article/'+ self.props.params.article);
@@ -76,6 +80,4 @@ class EditArticle extends React.Component{
     )
   }
 }
-
-
 export default EditArticle;
