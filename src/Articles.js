@@ -10,10 +10,8 @@ class Articles extends React.Component{
     this.state = {
       articles: []
     }
-    this.getArticles = this.getArticles.bind(this);
-    this.getArticles();
   }
-  getArticles() {
+  componentDidMount() {
     var self = this;
     axios.get(srv+'/articles')
       .then(function (response) {

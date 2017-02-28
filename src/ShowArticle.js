@@ -11,10 +11,9 @@ class ShowArticle extends React.Component{
     this.state = {
       article: {}
     }
-    this.getArticle();
     this.handleDelete = this.handleDelete.bind(this);
   }
-  getArticle(){
+  componentDidMount(){
     var self = this;
     axios.get(srv+'/articles/' + self.props.params.article)
       .then(function (response) {

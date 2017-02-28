@@ -10,17 +10,10 @@ class EditArticle extends React.Component{
     this.state = {
 
     }
-    this.getArticle();
     this.onChangeField = this.onChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  onChangeField(e) {
-    var name = e.target.name;
-    var obj = {};
-    obj[name] = e.target.value;
-    this.setState(obj);
-  }
-  getArticle(){
+  componentDidMount(){
     var self = this;
     axios.get(srv+'/articles/' + self.props.params.article)
       .then(function (response) {
@@ -30,6 +23,12 @@ class EditArticle extends React.Component{
       .catch(function (error) {
         console.log(error);
       });
+  }
+  onChangeField(e) {
+    var name = e.target.name;
+    var obj = {};
+    obj[name] = e.target.value;
+    this.setState(obj);
   }
   handleSubmit(e) {
     var config = {
@@ -47,7 +46,6 @@ class EditArticle extends React.Component{
     .catch(function (error) {
       console.log(error);
     });
-
   }
   render() {
     return (
