@@ -33,14 +33,20 @@ class NewArticle extends React.Component{
       hashHistory.push('/');
     })
     .catch(function (error) {
-      console.log(error);
-      var err = error.response.data.errors;
-      for (var key in err){
-        if (err.hasOwnProperty(key)){
-          Alert.error((key + " " + err[key]), {
-              position: 'bottom-left',
-              effect: 'slide',
-              timeout: 5000});
+      if (error.response.status === 401){
+        Alert.error('please login to add article', {
+          position: 'bottom-left',
+          effect: 'slide',
+          timeout: 5000});
+      } else {
+        var err = error.response.data.errors;
+        for (var key in err){
+          if (err.hasOwnProperty(key)){
+            Alert.error((key + " " + err[key]), {
+                position: 'bottom-left',
+                effect: 'slide',
+                timeout: 5000});
+          }
         }
       }
     });
